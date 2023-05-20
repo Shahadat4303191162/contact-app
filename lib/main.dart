@@ -1,5 +1,7 @@
 import 'package:class11ddcontactapp/page/contact_details_page.dart';
 import 'package:class11ddcontactapp/page/contact_list_page.dart';
+import 'package:class11ddcontactapp/page/launcher_page.dart';
+import 'package:class11ddcontactapp/page/login_page.dart';
 import 'package:class11ddcontactapp/page/new_contact_page.dart';
 import 'package:class11ddcontactapp/provider/contact_provider.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +11,7 @@ import 'package:provider/provider.dart';
 void main() {
   runApp(MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) =>ContactProvider()),
+        ChangeNotifierProvider(create: (context) =>ContactProvider() ..getAllContacts()),
       ],
       child: const MyApp()));
 }
@@ -27,8 +29,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: ContactList.routeName,
+      initialRoute: LauncherPage.routeName,
       routes: {
+        LauncherPage.routeName:(context) =>LauncherPage(),
+        LoginPage.routeName:(context) =>LoginPage(),
         ContactList.routeName:(context) => ContactList(),
         AddContactPage.routeName:(context) =>AddContactPage(),
         ContactDetailsPage.routeName:(context) =>ContactDetailsPage(),

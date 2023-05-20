@@ -2,9 +2,11 @@ import 'dart:io';
 
 import 'package:class11ddcontactapp/db/db_helper.dart';
 import 'package:class11ddcontactapp/model/contact_model.dart';
+import 'package:class11ddcontactapp/provider/contact_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class AddContactPage extends StatefulWidget {
   static const String routeName = '/newContact';    
@@ -223,9 +225,10 @@ class _AddContactPageState extends State<AddContactPage> {
 
       );
       print(contact.toString());
-      final rowId = await DbHelper.insertContact(contact);
-      if(rowId>0){
-        contact.id = rowId;
+      final status = await Provider
+          .of<ContactProvider>(context,listen: false)
+          .InsertContact(contact);
+      if(status){
         Navigator.pop(context);
       }else{
 
